@@ -10,24 +10,31 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  number: 2
 
 requirements:
   build:
-    - gnuconfig  # [unix]
-    - {{ compiler('c') }}          # [unix]
-    - {{ compiler('cxx') }}        # [unix]
-    - {{ stdlib('c') }}            # [unix]
-    - {{ compiler('m2w64_c') }}    # [win]
-    - {{ compiler('m2w64_cxx') }}  # [win]
-    - {{ stdlib('m2w64_c') }}      # [win]
-    - make
-    - m2-base  # [win]
-    - m2-bash  # [win]
-    - m2-sed   # [win]
+    - gnuconfig  # [unix or win_arm64]
+    - {{ compiler('c') }}          # [unix or win_arm64]
+    - {{ compiler('cxx') }}        # [unix or win_arm64]
+    - {{ stdlib('c') }}            # [unix or win_arm64]
+    - {{ compiler('m2w64_c') }}    # [win and not win_arm64]
+    - {{ compiler('m2w64_cxx') }}  # [win and not win_arm64]
+    - {{ stdlib('m2w64_c') }}      # [win and not win_arm64]
+    - make  # [not win_arm64]
+    - autotools_clang_conda  # [win_arm64]
+    - m2-base  # [win and not win_arm64]
+    - m2-bash  # [win and not win_arm64]
+    - m2-sed   # [win and not win_arm64]
     - sed      # [osx]
 
 test:
+  requires:
+    - {{ compiler('c') }}  # [win_arm64]
+    - {{ stdlib('c') }}  # [win_arm64]
+  files:
+    - keywords.gperf  # [win_arm64]
+    - check_lookup.c  # [win_arm64]
   commands:
     - gperf --help         # [unix]
     - gperf --version      # [unix]

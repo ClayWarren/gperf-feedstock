@@ -1,0 +1,8 @@
+%language=C
+%readonly-tables
+%includes
+%%
+fontconfig
+cairo
+arm64
+%%
