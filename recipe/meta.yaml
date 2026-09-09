@@ -14,27 +14,27 @@ build:
 
 requirements:
   build:
-    - gnuconfig  # [unix or win_arm64]
-    - {{ compiler('c') }}          # [unix or win_arm64]
-    - {{ compiler('cxx') }}        # [unix or win_arm64]
-    - {{ stdlib('c') }}            # [unix or win_arm64]
-    - {{ compiler('m2w64_c') }}    # [win and not win_arm64]
-    - {{ compiler('m2w64_cxx') }}  # [win and not win_arm64]
-    - {{ stdlib('m2w64_c') }}      # [win and not win_arm64]
-    - make  # [not win_arm64]
-    - autotools_clang_conda  # [win_arm64]
-    - m2-base  # [win and not win_arm64]
-    - m2-bash  # [win and not win_arm64]
-    - m2-sed   # [win and not win_arm64]
+    - gnuconfig  # [unix]
+    - {{ compiler('c') }}          # [unix or target_platform == "win-arm64"]
+    - {{ compiler('cxx') }}        # [unix or target_platform == "win-arm64"]
+    - {{ stdlib('c') }}            # [unix or target_platform == "win-arm64"]
+    - {{ compiler('m2w64_c') }}    # [win and target_platform != "win-arm64"]
+    - {{ compiler('m2w64_cxx') }}  # [win and target_platform != "win-arm64"]
+    - {{ stdlib('m2w64_c') }}      # [win and target_platform != "win-arm64"]
+    - make  # [target_platform != "win-arm64"]
+    - autotools_clang_conda  # [target_platform == "win-arm64"]
+    - m2-base  # [win and target_platform != "win-arm64"]
+    - m2-bash  # [win and target_platform != "win-arm64"]
+    - m2-sed   # [win and target_platform != "win-arm64"]
     - sed      # [osx]
 
 test:
   requires:
-    - {{ compiler('c') }}  # [win_arm64]
-    - {{ stdlib('c') }}  # [win_arm64]
+    - {{ compiler('c') }}  # [target_platform == "win-arm64"]
+    - {{ stdlib('c') }}  # [target_platform == "win-arm64"]
   files:
-    - keywords.gperf  # [win_arm64]
-    - check_lookup.c  # [win_arm64]
+    - keywords.gperf  # [target_platform == "win-arm64"]
+    - check_lookup.c  # [target_platform == "win-arm64"]
   commands:
     - gperf --help         # [unix]
     - gperf --version      # [unix]
