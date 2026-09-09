@@ -26,6 +26,7 @@ requirements:
     - m2-base  # [win and target_platform != "win-arm64"]
     - m2-bash  # [win and target_platform != "win-arm64"]
     - m2-sed   # [win and target_platform != "win-arm64"]
+    - m2-diffutils  # [win and target_platform != "win-arm64"]
     - sed      # [osx]
 
 test:
