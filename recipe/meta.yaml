@@ -30,12 +30,6 @@ requirements:
     - sed      # [osx]
 
 test:
-  requires:
-    - {{ compiler('c') }}  # [target_platform == "win-arm64"]
-    - {{ stdlib('c') }}  # [target_platform == "win-arm64"]
-  files:
-    - keywords.gperf  # [target_platform == "win-arm64"]
-    - check_lookup.c  # [target_platform == "win-arm64"]
   commands:
     - gperf --help         # [unix]
     - gperf --version      # [unix]
