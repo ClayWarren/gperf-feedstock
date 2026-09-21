@@ -21,6 +21,7 @@ jobs:
     runs-on: ${{ matrix.runner }}
     timeout-minutes: 60
     env:
+      CI: github_actions
       CONFIG: ${{ matrix.config }}
       BUILD_PLATFORM: ${{ matrix.platform }}
       HOST_PLATFORM: ${{ matrix.platform }}
