@@ -15,18 +15,11 @@ build:
 requirements:
   build:
     - gnuconfig  # [unix]
-    - {{ compiler('c') }}          # [unix or target_platform == "win-arm64"]
-    - {{ compiler('cxx') }}        # [unix or target_platform == "win-arm64"]
-    - {{ stdlib('c') }}            # [unix or target_platform == "win-arm64"]
-    - {{ compiler('m2w64_c') }}    # [win and target_platform != "win-arm64"]
-    - {{ compiler('m2w64_cxx') }}  # [win and target_platform != "win-arm64"]
-    - {{ stdlib('m2w64_c') }}      # [win and target_platform != "win-arm64"]
-    - make  # [target_platform != "win-arm64"]
-    - autotools_clang_conda  # [target_platform == "win-arm64"]
-    - m2-base  # [win and target_platform != "win-arm64"]
-    - m2-bash  # [win and target_platform != "win-arm64"]
-    - m2-sed   # [win and target_platform != "win-arm64"]
-    - m2-diffutils  # [win and target_platform != "win-arm64"]
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ stdlib('c') }}
+    - make  # [unix]
+    - autotools_clang_conda >=0.0.14  # [win]
     - sed      # [osx]
 
 test:
