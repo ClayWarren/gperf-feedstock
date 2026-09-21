@@ -1,0 +1,35 @@
+name: Validate unified Windows builds
+on:
+  push:
+    branches: [codex/unified-windows-validation]
+permissions:
+  contents: read
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - config: win_64_
+            platform: win-64
+            runner: windows-2022
+            prefix: D:\Miniforge
+          - config: win_arm64_
+            platform: win-arm64
+            runner: windows-11-arm
+            prefix: C:\Miniforge
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    env:
+      CONFIG: ${{ matrix.config }}
+      BUILD_PLATFORM: ${{ matrix.platform }}
+      HOST_PLATFORM: ${{ matrix.platform }}
+      MINIFORGE_HOME: ${{ matrix.prefix }}
+      CONDA_BLD_PATH: C:\bld
+      UPLOAD_PACKAGES: 'False'
+      IS_PR_BUILD: 'True'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and test
+        shell: cmd
+        run: call .scripts\run_win_build.bat
